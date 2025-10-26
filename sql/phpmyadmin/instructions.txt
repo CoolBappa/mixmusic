@@ -1,0 +1,1 @@
+Delete old data once you import this sql to phpmyadmin
