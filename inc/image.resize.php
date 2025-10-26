@@ -1,0 +1,121 @@
+<?php
+	
+	function resize($imagePath,$opts=null){
+		
+		# start configuration
+		
+		$cacheFolder = 'imagecache/'; # path to your cache folder, must be writeable by web server
+		if (!file_exists($cacheFolder )) {
+			mkdir($cacheFolder );
+			chmod($cacheFolder , 0777);
+		}
+		
+		$remoteFolder = $cacheFolder.'remote/'; # path to the folder you wish to download remote images into
+		$quality = 90; # image quality to use for ImageMagick (0 - 100)
+		
+		$cache_http_minutes = 1440; 	# cache downloaded http images 20 minutes
+		
+		$path_to_convert = 'convert'; # this could be something like /usr/bin/convert or /opt/local/share/bin/convert
+		
+		## you shouldn't need to configure anything else beyond this point
+		
+		$purl = parse_url($imagePath);
+		$finfo = pathinfo($imagePath);
+		$ext = $finfo['extension'];
+		
+		# check for remote image..
+		if(isset($purl['scheme']) && $purl['scheme'] == 'http'):
+		# grab the image, and cache it so we have something to work with..
+		list($filename) = explode('?',$finfo['basename']);
+		$local_filepath = $remoteFolder.$filename;
+		$download_image = true;
+		if(file_exists($local_filepath)):
+		if(filemtime($local_filepath) < strtotime('+'.$cache_http_minutes.' minutes')):
+		$download_image = false;
+		endif;
+		endif;
+		if($download_image == true):
+		$img = file_get_contents($imagePath);
+		file_put_contents($local_filepath,$img);
+		endif;
+		$imagePath = $local_filepath;
+		endif;
+		
+		if(file_exists($imagePath) == false):
+		$imagePath = $_SERVER['DOCUMENT_ROOT'].$imagePath;
+		if(file_exists($imagePath) == false):
+		return 'image not found';
+		endif;
+		endif;
+		
+		if(isset($opts['w'])): $w = $opts['w']; endif;
+		if(isset($opts['h'])): $h = $opts['h']; endif;
+		
+		if($opts['newname'] == '')
+		$filename = md5_file($imagePath);
+        else
+		$filename = $opts['newname'];
+		
+		if(!empty($w) and !empty($h)):
+		$newPath = $cacheFolder.$filename;
+		elseif(!empty($w)):
+		$newPath = $cacheFolder.$filename;
+		elseif(!empty($h)):
+		$newPath = $cacheFolder.$filename;
+		else:
+		return false;
+		endif;
+		
+		$create = true;
+		
+		if(file_exists($newPath) == true):
+		$create = false;
+		$origFileTime = date("YmdHis",filemtime($imagePath));
+		$newFileTime = date("YmdHis",filemtime($newPath));
+		if($newFileTime < $origFileTime):
+		$create = true;
+		endif;
+        endif;
+		
+        if($create == true):
+		if(!empty($w) and !empty($h)):
+		
+		list($width,$height) = getimagesize($imagePath);
+		$resize = $w;
+		
+		if($width > $height):
+		$resize = $w;
+		if(isset($opts['crop']) && $opts['crop'] == true):
+		$resize = "x".$h;
+		endif;
+		else:
+		$resize = "x".$h;
+		if(isset($opts['crop']) && $opts['crop'] == true):
+		$resize = $w;
+		endif;
+		endif;
+		
+		if(isset($opts['scale']) && $opts['scale'] == true):
+		$cmd = $path_to_convert." ".$imagePath." -resize ".$resize." -quality ".$quality." ".$newPath;
+		else:
+		$cmd = $path_to_convert." ".$imagePath." -resize ".$resize." -size ".$w."x".$h." xc:".(isset($opts['canvas-color'])?$opts['canvas-color']:"transparent")." +swap -gravity center -composite -quality ".$quality." ".$newPath;
+		endif;
+		
+		else:
+		$cmd = $path_to_convert." ".$imagePath." -thumbnail ".(!empty($h) ? 'x':'').$w."".(isset($opts['maxOnly']) && $opts['maxOnly'] == true ? "\>" : "")." -quality ".$quality." ".$newPath;
+		endif;
+		if(exec($cmd))
+		{
+			//echo 'true';
+		}
+		else {
+			resizeImagec($imagePath, $h, $w , $newPath);
+		}
+		endif;
+		
+		# return cache file path
+		return str_replace($_SERVER['DOCUMENT_ROOT'],'',$newPath);
+		
+	}
+	
+?>

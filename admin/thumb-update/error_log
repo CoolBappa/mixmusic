@@ -1,0 +1,11 @@
+[11-May-2016 05:43:53 UTC] PHP Parse error:  syntax error, unexpected '$_POST' (T_VARIABLE) in /home/mixmusic/public_html/admin/thumb-update/addupdate_process.php on line 7
+[11-May-2016 05:48:52 UTC] PHP Fatal error:  Directive 'magic_quotes_sybase' is no longer available in PHP in Unknown on line 0
+[11-May-2016 05:48:58 UTC] PHP Fatal error:  Directive 'magic_quotes_sybase' is no longer available in PHP in Unknown on line 0
+[11-May-2016 05:49:01 UTC] PHP Fatal error:  Directive 'magic_quotes_sybase' is no longer available in PHP in Unknown on line 0
+[11-May-2016 06:51:42 UTC] PHP Warning:  mysql_query(): No such file or directory in /home/mixmusic/public_html/inc/cacheClassadmin.php on line 195
+[11-May-2016 06:51:42 UTC] PHP Warning:  mysql_query(): A link to the server could not be established in /home/mixmusic/public_html/inc/cacheClassadmin.php on line 195
+[11-May-2016 06:51:42 UTC] PHP Warning:  mysql_query(): No such file or directory in /home/mixmusic/public_html/inc/cacheClassadmin.php on line 195
+[11-May-2016 06:51:42 UTC] PHP Warning:  mysql_query(): A link to the server could not be established in /home/mixmusic/public_html/inc/cacheClassadmin.php on line 195
+[11-May-2016 06:51:42 UTC] PHP Warning:  mysql_query(): No such file or directory in /home/mixmusic/public_html/inc/cacheClassadmin.php on line 195
+[11-May-2016 06:51:42 UTC] PHP Warning:  mysql_query(): A link to the server could not be established in /home/mixmusic/public_html/inc/cacheClassadmin.php on line 195
+[11-May-2016 06:51:42 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/mixmusic/public_html/admin/thumb-update/index.php on line 94

@@ -1,0 +1,55 @@
+<FilesMatch "\.(tpl|txt)$">
+ Order Allow,Deny
+ Deny from All
+</FilesMatch> 
+
+<filesMatch ".(css|jpg|jpeg|png|gif|js|ico)$">
+Header set Cache-Control "max-age=2592000, public"
+</filesMatch>
+
+<IfModule mod_deflate.c>
+    <filesMatch "\.(js|css|html|php)$">
+        SetOutputFilter DEFLATE
+    </filesMatch>
+</IfModule>
+
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /app
+RewriteRule ^$ /app/ 
+RewriteCond %{THE_REQUEST} \ /+app/([^\ \?])*
+RewriteRule ^ /404.php [L,R]
+RewriteCond %{REQUEST_URI} !(/$|\.) 
+RewriteRule (.*) %{REQUEST_URI}/ [R=302,L] 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^cat/([0-9]+)/([^/]+)/$ index.php?pid=$1&ht=$2 [L,QSA,NC]
+RewriteRule ^cat/([0-9]+)/([0-9]+)/([^/]+)/$ index.php?pid=$1&page=$2&ht=$3 [L,QSA,NC]
+RewriteRule ^cat/([^/]+)/([0-9]+)/([^/]+)/([^/]+)/$ index.php?sort=$1&pid=$2&page=$3&ht=$4 [L,QSA,NC]
+RewriteRule ^singers/$ singer.php [L,NC,QSA]
+RewriteRule ^singers/([0-9]+)/$ singer.php?page=$1 [L,NC,QSA]
+RewriteRule ^singers/([^/]*)/([0-9]+)/$ singer.php?sort=$1&page=$2 [L,NC,QSA]
+RewriteRule ^songs/([0-9]+)/([^/]*)/$ songs.php?id=$1&name=$2 [L,NC,QSA]
+RewriteRule ^songs/([0-9]+)/([0-9]+)/([^/]*)/$ songs.php?id=$1&page=$2&name=$3 [L,NC,QSA]
+RewriteRule ^stars/$ star.php [L,QSA,NC]
+RewriteRule ^stars/([0-9]+)/$ star.php?page=$1 [L,QSA,NC]
+RewriteRule ^stars/([^/]*)/([0-9]+)/$ star.php?sort=$1&page=$2 [L,QSA,NC]
+RewriteRule ^new-releases/$ new-releases.php [L,QSA,NC]
+RewriteRule ^new-releases/([0-9]+)/$ new-releases.php?page=$1 [L,QSA,NC]
+RewriteRule ^download/([0-9]+)/([^/]*)/$ downloadpage.php?&id=$1&ht=$2 [L,QSA,NC]
+RewriteRule ^files/download/id/([0-9]+)/([^/]*)/$ download.php?id=$1&size=$2 [L]
+RewriteRule ^files/download/id/([0-9]+)/$ download.php?id=$1 [L]
+RewriteRule ^files/download/([^/]*)/id/([0-9]+)/$ download.php?bitrate=$1&id=$2 [L]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$ 
+RewriteCond %{QUERY_STRING} ^(.*&)?search=([^/]*) [NC]
+RewriteRule ^search\.php$ /search/%2? [R=302,L]
+RewriteRule ^search/$ search.php [L,QSA,NC]
+RewriteRule ^search/([^/]*)/$ search.php?search=$1 [L,QSA,NC]
+RewriteRule ^search/([^/]*)/([0-9]+)/$ search.php?search=$1&page=$2 [L,QSA,NC]
+RewriteRule ^contact/$ contact.php [L,QSA,NC]
+RewriteRule ^dmca/$ dmca.php [L,QSA,NC]
+
+
+ErrorDocument 404 /404.php
+ErrorDocument 403 /404.php
+

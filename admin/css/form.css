@@ -1,0 +1,108 @@
+.menu_bg{
+    background:#f7f7f7;
+    border-left:1px solid#d3d3d3;
+    border-right:1px solid#d3d3d3;
+    border-bottom:1px solid#d3d3d3;
+}
+    
+.basic-grey {
+    margin:auto;
+    max-width:750px;
+    padding: 15px 15px 15px 10px;
+    color: #333;
+    text-shadow: 1px 1px 1px #FFF;
+    
+}
+
+.basic-grey label {
+    display: block;
+    margin: 0px;
+}
+.basic-grey .text {
+    float: left;
+    width: 150px;
+    text-align: right;
+    padding-right: 10px;
+    margin-top: 10px;
+    color: #222;
+
+}
+.basic-grey input[type="text"], .basic-grey textarea {
+    border: 1px solid #DADADA;
+    color: #666;
+    height: 30px;
+    margin-bottom: 16px;
+    margin-right: 6px;
+    margin-top: 2px;
+    outline: 0 none;
+    padding: 3px 3px 3px 5px;
+    width: 500px;
+    font-size: 12px;
+    line-height:10px;
+    box-shadow: inset 0px 1px 4px #ECECEC;
+    -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+    -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+}
+
+.basic-grey input[type="checkbox"]{
+    border: 1px solid #DADADA;
+    color: #666;
+    height: 20px;
+    margin-right: 6px;
+    margin-top:12px;
+    outline: 0 none;
+    width: 16px;
+    font-size: 20px;
+    box-shadow: inset 0px 1px 4px #ECECEC;
+    -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+    -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+}
+.basic-grey input[type="file"]{
+    border: 1px solid #DADADA;
+    color: #666;
+    height: 30px;
+    margin-bottom: 16px;
+    margin-right: 6px;
+    margin-top: 2px;
+    outline: 0 none;
+    padding: 3px 3px 3px 5px;
+    width: 500px;
+    font-size: 12px;
+    line-height:10px;
+    box-shadow: inset 0px 1px 4px #ECECEC;
+    -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+    -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+}
+.basic-grey textarea{
+    padding: 5px 3px 3px 5px;
+}
+.basic-grey select { 
+    border: 1px solid #DADADA;
+    color: #666;
+    height: 35px;
+    margin-bottom: 16px;
+    margin-right: 6px;
+    margin-top: 2px;
+    outline: 0 none;
+    padding: 3px 3px 3px 5px;
+    width: 70px;
+    font-size: 12px;
+    box-shadow: inset 0px 1px 4px #ECECEC;
+    -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+    -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+}
+.basic-grey textarea{
+    height:100px;
+}
+.basic-grey input[type="submit"]{
+    background: #e27575;
+    border: none;
+    padding: 10px;
+    color: #FFF;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top:10px;
+}
+.basic-grey .button:hover {
+    background: #CF7A7A
+}
