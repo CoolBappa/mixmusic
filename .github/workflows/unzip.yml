@@ -1,0 +1,33 @@
+name: Unzip Archive
+
+on:
+  workflow_dispatch:      # lets you run manually
+  push:
+    paths:
+      - '*.zip'           # only run when a zip file is pushed
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Unzip all zip files
+        run: |
+          for f in *.zip; do
+            unzip -o "$f" -d .
+          done
+
+      - name: Remove zip files (optional)
+        run: rm -f *.zip
+
+      - name: Commit & Push extracted files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Extract zip automatically" || echo "Nothing to commit"
+          git push
